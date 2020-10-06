@@ -45,10 +45,47 @@ let beepSound;
 document.addEventListener("DOMContentLoaded", setupCanvas);
 
 function setupCanvas() {
-
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext("2d");
+    canvas.width = 1400;
+    canvas.height = 1000;
+    player = new Paddle("left");
+    aiPlayer = new Paddle("right");
+    ball = new Ball(7);
+    aiPlayer.speed = 7;
+    targetForBall = player;
+    delayAmount = (new Date()).getTime();
+    beepSound = document.getElementById("beepSound");
+    beepSound.src = "beepSound.wav";
+    document.addEventListener("keydown", movePlayerPaddle);
+    document.addEventListener("keyup", stopPlayerPaddle);
+    drawOnCanvas();
 }
 
 function drawOnCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+    ctx.fillRect(aiPlayer.x, aiPlayer.y, aiPlayer.width, aiPlayer.height);
+    ctx.fillRect(ball.x, ball.y, ball.width, ball.height);
+
+    ctx.font = "80px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(player.score.toString(), (canvas.width / 2) - 300, 100);
+    ctx.fillText(aiPlayer.score.toString(), (canvas.width / 2) + 300, 100);
+
+    if (player.score === 3) {
+        ctx.fillText("Player Wins", canvas.width / 2, 300);
+        gameOver = true;
+    }
+
+    if (aiPlayer.score === 3) {
+        ctx.fillText("AI Wins", canvas.width / 2, 300);
+        gameOver = true;
+    }
+    
 
 }
 
@@ -73,5 +110,5 @@ function gameLoop() {
 }
 
 function addDelay() {
-    
+
 }
