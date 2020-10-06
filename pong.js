@@ -90,7 +90,23 @@ function drawOnCanvas() {
 }
 
 function updateCanvas() {
+    if (!gameOver) {
+        if (ball.x <= 0) {
+            resetBall(aiPlayer, player);
+        }
 
+        if (ball.x >= canvas.width - ball.wdith) {
+            resetBall(player, aiPlayer);
+        }
+
+        if (ball.y <= 0) {
+            ball.moveY = DIRECTION.DOWN;
+        }
+
+        if (ball.y >= canvas,height = ball.height) {
+            ball.moveY = DIRECTION.UP;
+        }
+    }
 }
 
 function movePlayerPaddle() {
@@ -101,8 +117,12 @@ function stopPlayerPaddle() {
 
 }
 
-function resetBall() {
-
+function resetBall(whoScored, whoLost) {
+    whoScored.score++;
+    let newBallSpeed = ball.speed + .2;
+    ball = new Ball(newBallSpeed);
+    targetForBall = whoLost;
+    delayAmount = (new Date()).getTime();
 }
 
 function gameLoop() {
