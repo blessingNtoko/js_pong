@@ -157,7 +157,19 @@ function updateCanvas() {
             aiPlayer.y = canvas.height - aiPlayer.height;
         }
 
+        if (ball.x - ball.width <= player.x && ball.x >= player.x - player.width) {
+            if (ball.y <= player.y + player.height && ball.y + ball.height >= player.y) {
+                ball.moveX = DIRECTION.RIGHT;
+                beepSound.play();
+            }
+        }
 
+        if (ball.x - ball.width <= aiPlayer.x && ball.x >= aiPlayer.x - aiPlayer.width) {
+            if (ball.y <= aiPlayer.y + aiPlayer.height && ball.y + ball.height >= aiPlayer.y) {
+                ball.moveX = DIRECTION.LEFT;
+                beepSound.play();
+            }
+        }
     }
 }
 
@@ -184,7 +196,9 @@ function resetBall(whoScored, whoLost) {
 }
 
 function gameLoop() {
-
+    updateCanvas();
+    drawOnCanvas();
+    if (!gameOver) requestAnimationFrame(gameLoop);
 }
 
 function addDelay() {
