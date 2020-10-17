@@ -95,7 +95,7 @@ function updateCanvas() {
             resetBall(aiPlayer, player);
         }
 
-        if (ball.x >= canvas.width - ball.wdith) {
+        if (ball.x >= canvas.width - ball.width) {
             resetBall(player, aiPlayer);
         }
 
@@ -103,7 +103,7 @@ function updateCanvas() {
             ball.moveY = DIRECTION.DOWN;
         }
 
-        if (ball.y >= canvas,height = ball.height) {
+        if (ball.y >= canvas.height - ball.height) {
             ball.moveY = DIRECTION.UP;
         }
 
