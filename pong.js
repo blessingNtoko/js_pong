@@ -106,6 +106,12 @@ function updateCanvas() {
         if (ball.y >= canvas,height = ball.height) {
             ball.moveY = DIRECTION.UP;
         }
+
+        if (player.move === DIRECTION.DOWN) {
+            player.y += player.speed;
+        } else if (player.move === DIRECTION.UP) {
+            player.y -= player.speed;
+        }
     }
 }
 
