@@ -118,6 +118,46 @@ function updateCanvas() {
         } else if (player.y >= (canvas.height - player.height)) {
             player.y = canvas.height - player.height;
         }
+
+        if (addDelay() && targetForBall) {
+            ball.moveX = targetForBall === player ? DIRECTION.LEFT : DIRECTION.RIGHT;
+
+            ball.moveY = [DIRECTION.UP, DIRECTION.DOWN][Math.round(Math.random())];
+            ball.y = canvas.height / 2;
+            targetForBall = null;
+        }
+
+        if (ball.moveY === DIRECTION.UP) {
+            ball.y -= ball.speed;
+        } else if (ball.moveY === DIRECTION.DOWN) {
+            ball.y += ball.speed;
+        }
+
+        if (ball.moveX === DIRECTION.LEFT) {
+            ball.x -= ball.speed;
+        } else if (ball.moveX === DIRECTION.RIGHT) {
+            ball.x += ball.speed;
+        }
+
+        if (aiPlayer.y > ball.y - (aiPlayer.height / 2)) {
+            if (ball.moveX === DIRECTION.RIGHT) {
+                aiPlayer.y -= aiPlayer.speed;
+            }
+        }
+
+        if (aiPlayer.y < ball.y - (aiPlayer.height / 2)) {
+            if (ball.moveX === DIRECTION.RIGHT) {
+                aiPlayer.y += aiPlayer.speed;
+            }
+        }
+
+        if (aiPlayer.y < 0) {
+            aiPlayer.y = 0;
+        } else if (aiPlayer.y >= (canvas.height - aiPlayer.height)) {
+            aiPlayer.y = canvas.height - aiPlayer.height;
+        }
+
+
     }
 }
 
@@ -148,5 +188,5 @@ function gameLoop() {
 }
 
 function addDelay() {
-
+    return ((new Date()).getTime() - delayAmount >= 1000);
 }
