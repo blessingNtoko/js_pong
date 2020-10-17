@@ -112,15 +112,27 @@ function updateCanvas() {
         } else if (player.move === DIRECTION.UP) {
             player.y -= player.speed;
         }
+
+        if (player.y < 0) {
+            player.y = 0;
+        } else if (player.y >= (canvas.height - player.height)) {
+            player.y = canvas.height - player.height;
+        }
     }
 }
 
-function movePlayerPaddle() {
+function movePlayerPaddle(key) {
+    if (running === false) {
+        running = true;
+        window.requestAnimationFrame(gameLoop);
+    }
 
+    if (key.keyCode === 38 || key.keyCode === 87) player.move = DIRECTION.UP;
+    if (key.keyCode === 40 || key.keyCode === 83) player.move = DIRECTION.DOWN;
 }
 
-function stopPlayerPaddle() {
-
+function stopPlayerPaddle(evt) {
+    player.move = DIRECTION.STOPPED;
 }
 
 function resetBall(whoScored, whoLost) {
